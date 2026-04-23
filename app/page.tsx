@@ -21,17 +21,17 @@ const platformStats = [
     value: compactUsdFormatter.format(totalFunding),
   },
   {
-    detail: "Existing GitHub repositories ready for donations.",
+    detail: "GitHub repositories ready for donations.",
     label: "Programs",
     value: integerFormatter.format(programs.length),
   },
   {
-    detail: "Repos whose maintainers now control bounty payouts.",
+    detail: "Repos with maintainer-controlled bounty payouts.",
     label: "Claimed",
     value: integerFormatter.format(claimedPrograms),
   },
   {
-    detail: "Programs modeled with a Compound parking strategy.",
+    detail: "Programs with Compound III yield routing enabled.",
     label: "Yield-enabled",
     value: integerFormatter.format(compoundPrograms),
   },
@@ -39,126 +39,136 @@ const platformStats = [
 
 export default function Home() {
   return (
-    <main className="relative isolate overflow-hidden">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 py-6 sm:px-6 lg:px-10 lg:py-10">
-        <header className="panel grid overflow-hidden bg-[#0f2f30] text-[#f7efe2] lg:grid-cols-[1.25fr_0.95fr]">
-          <div className="relative flex flex-col gap-8 px-6 py-8 sm:px-8 lg:px-10 lg:py-12">
-            <div className="flex flex-wrap items-center gap-3 text-sm">
-              <span className="eyebrow border-white/12 bg-white/8 text-[#b8e6c6]">
-                USDC bounties for open source
-              </span>
-              <span className="data-chip border-white/12 bg-white/8 text-[#d9e9de]">
-                Ethereum
-              </span>
-              <span className="data-chip border-white/12 bg-white/8 text-[#d9e9de]">
-                GitHub claims
-              </span>
-              <span className="data-chip border-white/12 bg-white/8 text-[#d9e9de]">
-                Safe custody
-              </span>
+    <main>
+      <div className="page-wrap">
+
+        {/* ── Hero ───────────────────────────────────────────── */}
+        <section className="hero">
+          <div>
+            <span className="hero-eyebrow">
+              <span className="hero-eyebrow-dot" />
+              USDC bug bounties · Ethereum · Safe custody
+            </span>
+
+            <h1 className="hero-title">
+              Fund the repos{" "}
+              <span className="hero-title-accent">you rely on</span>{" "}
+              without giving anyone a single hot key.
+            </h1>
+
+            <p className="hero-subtitle">
+              OSSTrust ranks GitHub repositories by committed USDC, lets
+              maintainers claim their program, and keeps idle treasury funds
+              behind a guarded Safe policy instead of an unlocked wallet.
+            </p>
+
+            <div className="hero-chips">
+              <span className="hero-chip">Ethereum mainnet</span>
+              <span className="hero-chip">USDC donations</span>
+              <span className="hero-chip">GitHub claims</span>
+              <span className="hero-chip">Safe multisig</span>
+              <span className="hero-chip">Compound III yield</span>
             </div>
 
-            <div className="max-w-3xl space-y-5">
-              <p className="font-mono text-xs uppercase tracking-[0.32em] text-[#8ed7aa]">
-                osstrust.org
-              </p>
-              <h1 className="max-w-3xl text-5xl font-semibold tracking-[-0.05em] text-balance sm:text-6xl lg:text-7xl">
-                Fund the repos you rely on without turning every bounty pool
-                into an unlocked wallet.
-              </h1>
-              <p className="max-w-2xl text-base leading-8 text-[#cadad1] sm:text-lg">
-                OSSTrust ranks GitHub repositories by committed USDC, lets
-                maintainers claim their program, and keeps idle treasury funds
-                parked behind a guarded Safe policy instead of a single hot key.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              <a className="action-primary" href="#leaderboard">
-                Explore leaderboard
+            <div className="hero-actions">
+              <a className="btn-primary" href="#leaderboard">
+                Explore leaderboard →
               </a>
-              <a className="action-secondary" href="#custody">
+              <a className="btn-secondary" href="#custody">
                 Review custody model
               </a>
             </div>
           </div>
 
-          <div className="relative border-t border-white/10 bg-[#102728] px-6 py-8 sm:px-8 lg:border-t-0 lg:border-l lg:border-white/10 lg:px-10 lg:py-12">
-            <div className="space-y-4">
-              <p className="font-mono text-xs uppercase tracking-[0.32em] text-[#8ed7aa]">
-                Treasury flow
-              </p>
-              <h2 className="max-w-sm text-2xl font-semibold tracking-[-0.03em]">
+          {/* Treasury flow diagram */}
+          <div className="flow-card">
+            <div className="flow-card-header">
+              <p className="flow-card-label">Treasury flow</p>
+              <p className="flow-card-title">
                 Donations stay simple. Payout authority does not.
-              </h2>
+              </p>
             </div>
 
-            <div className="stage-flow mt-8 space-y-4">
-              <div className="stage-card">
-                <span className="stage-index">01</span>
-                <div>
-                  <p className="stage-title">Donate in USDC</p>
-                  <p className="stage-copy">
-                    A donor funds an existing GitHub repo on Ethereum and the
-                    program rises on the leaderboard immediately.
+            <div className="flow-steps">
+              <div className="flow-step">
+                <div className="flow-step-col">
+                  <div className="flow-step-num">01</div>
+                  <div className="flow-step-line" />
+                </div>
+                <div className="flow-step-body">
+                  <p className="flow-step-title">Donate in USDC</p>
+                  <p className="flow-step-copy">
+                    Fund any GitHub repo on Ethereum — it rises on the
+                    leaderboard immediately, claimed or not.
                   </p>
                 </div>
               </div>
 
-              <div className="stage-card">
-                <span className="stage-index">02</span>
-                <div>
-                  <p className="stage-title">Claim by GitHub ownership</p>
-                  <p className="stage-copy">
-                    Repo owners authenticate with GitHub and can lock payout
-                    processing away from the marketplace.
+              <div className="flow-step">
+                <div className="flow-step-col">
+                  <div className="flow-step-num">02</div>
+                  <div className="flow-step-line" />
+                </div>
+                <div className="flow-step-body">
+                  <p className="flow-step-title">Claim via GitHub</p>
+                  <p className="flow-step-copy">
+                    Repo owners authenticate and lock payout control away
+                    from the marketplace.
                   </p>
                 </div>
               </div>
 
-              <div className="stage-card">
-                <span className="stage-index">03</span>
-                <div>
-                  <p className="stage-title">Guard the treasury</p>
-                  <p className="stage-copy">
-                    A Safe plus delay policy can buffer emergency exits while a
-                    Compound sweep keeps idle USDC productive.
+              <div className="flow-step">
+                <div className="flow-step-col">
+                  <div className="flow-step-num">03</div>
+                  <div className="flow-step-line" />
+                </div>
+                <div className="flow-step-body">
+                  <p className="flow-step-title">Guard the treasury</p>
+                  <p className="flow-step-copy">
+                    A Safe plus delay policy buffers emergency exits while
+                    Compound III keeps idle USDC productive.
                   </p>
                 </div>
               </div>
             </div>
           </div>
-        </header>
+        </section>
 
-        <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {/* ── Platform stats ──────────────────────────────────── */}
+        <section className="stats-grid" aria-label="Platform statistics">
           {platformStats.map((stat) => (
-            <article className="metric-card" key={stat.label}>
-              <p className="metric-label">{stat.label}</p>
-              <p className="metric-value">{stat.value}</p>
-              <p className="metric-detail">{stat.detail}</p>
-            </article>
+            <div className="stat-cell" key={stat.label}>
+              <p className="stat-label">{stat.label}</p>
+              <p className="stat-value">{stat.value}</p>
+              <p className="stat-detail">{stat.detail}</p>
+            </div>
           ))}
         </section>
 
-        <section
-          id="custody"
-          className="grid gap-5 lg:grid-cols-[1.15fr_0.85fr_0.85fr]"
-        >
-          {operatingPrinciples.map((principle) => (
-            <article className="panel p-6 sm:p-7" key={principle.title}>
-              <p className="font-mono text-[0.72rem] uppercase tracking-[0.28em] text-[#3f6a5f]">
-                {principle.eyebrow}
-              </p>
-              <h2 className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-[#11201f]">
-                {principle.title}
-              </h2>
-              <p className="mt-4 text-sm leading-7 text-[#455856] sm:text-base">
-                {principle.body}
-              </p>
-            </article>
-          ))}
+        {/* ── Operating principles ────────────────────────────── */}
+        <section id="custody" aria-label="Custody model">
+          <p className="section-eyebrow">Custody model</p>
+          <h2 className="section-title">
+            Three rules that keep the money safe.
+          </h2>
+          <p className="section-subtitle">
+            Every design decision comes back to one question: who can move
+            funds, under what conditions, and how does the audit trail look?
+          </p>
+
+          <div className="card-grid-3" style={{ marginTop: "2rem" }}>
+            {operatingPrinciples.map((principle) => (
+              <article className="content-card" key={principle.title}>
+                <p className="card-eyebrow">{principle.eyebrow}</p>
+                <h3 className="card-title">{principle.title}</h3>
+                <p className="card-body">{principle.body}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
+        {/* ── Leaderboard ─────────────────────────────────────── */}
         <ProgramBoard
           claimStates={claimStateOptions}
           languages={[...new Set(programs.map((program) => program.language))]}
@@ -166,21 +176,28 @@ export default function Home() {
           repositoryTypes={repositoryTypeOptions}
         />
 
-        <section className="grid gap-5 lg:grid-cols-[1fr_1fr_1fr]">
-          {launchPhases.map((phase) => (
-            <article className="panel p-6 sm:p-7" key={phase.step}>
-              <p className="font-mono text-xs uppercase tracking-[0.32em] text-[#3f6a5f]">
-                Phase {phase.step}
-              </p>
-              <h2 className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-[#11201f]">
-                {phase.title}
-              </h2>
-              <p className="mt-4 text-sm leading-7 text-[#455856] sm:text-base">
-                {phase.detail}
-              </p>
-            </article>
-          ))}
+        {/* ── Roadmap ─────────────────────────────────────────── */}
+        <section id="roadmap" aria-label="Launch roadmap">
+          <p className="section-eyebrow">Roadmap</p>
+          <h2 className="section-title">
+            Shipping in three focused phases.
+          </h2>
+          <p className="section-subtitle">
+            Each phase unlocks a self-contained slice of value. You can fund
+            and discover repos today. Claims and onchain custody follow.
+          </p>
+
+          <div className="card-grid-3" style={{ marginTop: "2rem" }}>
+            {launchPhases.map((phase) => (
+              <article className="content-card" key={phase.step}>
+                <p className="card-eyebrow">Phase {phase.step}</p>
+                <h3 className="card-title">{phase.title}</h3>
+                <p className="card-body">{phase.detail}</p>
+              </article>
+            ))}
+          </div>
         </section>
+
       </div>
     </main>
   );
