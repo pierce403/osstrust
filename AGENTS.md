@@ -114,6 +114,7 @@ npm run build
 - Node `23.9.0` produced engine warnings during install. Use `.nvmrc` and stay on `22.13.0`.
 - On this machine, `gh auth status` is configured for SSH Git operations. Keep `origin` on `git@github.com:pierce403/osstrust.git` or pushes may fall back to HTTPS credential prompts.
 - The Vercel project was initially created while the repo was effectively empty, so Vercel set the Framework Preset to `Other`. That caused the production deployment to behave like a generic static project and return `NOT_FOUND` at `/`. `vercel.json` now forces `"framework": "nextjs"` to override the dashboard preset.
+- The globally installed Vercel CLI on this machine is too old for current production deploy endpoints. If `vercel deploy --prod` fails with a minimum-version error, use `npx vercel@latest deploy --prod --yes` instead of the stale global binary.
 
 ## Agent Tips
 
@@ -121,6 +122,7 @@ npm run build
 - If you touch the app shell or leaderboard flow, run `lint`, `typecheck`, and `build` before finishing.
 - If you add real auth, database, or chain integrations, update this file with exact env vars, migration commands, and deployment steps.
 - If you build repo-submission intake, store the raw entry payload in blob storage first, then run validation and normalization into durable app records.
+- For Vercel deploy debugging, `vercel project inspect osstrust`, `vercel inspect <deployment>`, `vercel alias ls`, and `curl -I https://osstrust.vercel.app/` quickly separate framework misconfigurations from alias issues.
 - If a task changes the repo workflow, release process, or branch strategy, update the `Mandatory Completion Workflow` section immediately.
 
 ## Rapport And Reflection
