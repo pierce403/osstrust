@@ -52,8 +52,7 @@ export default function Home() {
 
             <h1 className="hero-title">
               Fund the repos{" "}
-              <span className="hero-title-accent">you rely on</span>{" "}
-              without giving anyone a single hot key.
+              <span className="hero-title-accent">you rely on.</span>
             </h1>
 
             <p className="hero-subtitle">
