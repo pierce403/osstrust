@@ -113,6 +113,7 @@ npm run build
 - `yarn create next-app` was unreliable in this environment. `npx create-next-app` worked, and the repo now installs cleanly with `npm`.
 - Node `23.9.0` produced engine warnings during install. Use `.nvmrc` and stay on `22.13.0`.
 - On this machine, `gh auth status` is configured for SSH Git operations. Keep `origin` on `git@github.com:pierce403/osstrust.git` or pushes may fall back to HTTPS credential prompts.
+- The Vercel project was initially created while the repo was effectively empty, so Vercel set the Framework Preset to `Other`. That caused the production deployment to behave like a generic static project and return `NOT_FOUND` at `/`. `vercel.json` now forces `"framework": "nextjs"` to override the dashboard preset.
 
 ## Agent Tips
 
