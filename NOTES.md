@@ -8,7 +8,7 @@ and ran compatibility check before source changes: 94%, zero unsupported issues,
 only the existing Turbopack config partially relevant.
 
 Worker `osstrust` uses pinned vinext 1.1.0, Vite 8.3.4, Cloudflare Vite plugin
-1.63.1 and Wrangler 4.149.0. React/React DOM/react-server-dom-webpack 19.2.6
+1.63.1 and Wrangler 4.149.0. React/React DOM/react-server-dom-webpack 19.3.0
 meet vinext's peer requirement. Original Next.js build remains available as
 `npm run build`; no app components, seed data or API handler changed.
 
@@ -24,14 +24,21 @@ local HTTP checks covering home, all API filter dimensions, combined/empty/query
 normalization/zero-result cases, marker and 404. Unfiltered API JSON exactly matches
 current public production. Browser search and combined language/claim filters work.
 
-The retained Next.js recovery-build dependency has a critical npm advisory. It is
-not the Cloudflare request runtime; no broad framework upgrade was mixed into this
-port. Review separately before reactivating a Next.js production server.
+Coordinated security review found a React Server Components Server Function denial
+of service advisory affecting versions below 19.2.8. Updated React, React DOM and
+RSC together to 19.3.0, plus retained Next/eslint-config-next to 16.4.0. Compatible
+transitive advisory patches were refreshed without forced peer overrides. Remaining
+audit findings are build glob tooling and the unused OG image dependency chain;
+this application has no OG/ZIP endpoint or user-controlled build glob input.
+
+When switching between Next recovery builds and vinext builds, remove the generated
+`.next` cache first. Their generated route-type declarations differ; a stale Next
+validator caused a typecheck error until the build cache was separated.
 
 Clean `npm ci --no-audit --no-fund` from the final lockfile succeeded under Node
 22.23.3. The final Cloudflare build and Wrangler dry run were repeated after that
 install. Existing application dependency versions are preserved except the required
-React 19.2.6 adapter peer alignment in OSSTrust and resolved shared transitive tools.
+React 19.3.0 adapter peer alignment in OSSTrust and resolved shared transitive tools.
 
 ## Deployment contract
 
