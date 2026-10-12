@@ -147,3 +147,7 @@ handoff overrides the usual immediate-push workflow for this preparation task.
 Only ASSETS is bound. Preserve seeded data and `/api/programs` filter semantics.
 Local skill installation and `.migration/` logs stay ignored. API parity, actual
 font assets and browser interactions are separate evidence from build success.
+
+Production cutover uses ordinary zone routes (not custom domains) and disabled
+version preview URLs. DNS proxying, TLS readiness and the route-bearing production
+push must be sequenced by the migration coordinator.

@@ -17,5 +17,12 @@
     "traces": {
       "enabled": true
     }
-  }
+  },
+  "preview_urls": false,
+  "routes": [
+    {
+      "pattern": "osstrust.org/*",
+      "zone_name": "osstrust.org"
+    }
+  ]
 }
