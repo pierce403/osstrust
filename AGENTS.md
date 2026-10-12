@@ -35,7 +35,7 @@ If you cannot push or merge because of missing permissions, branch protection, f
 
 ## Project Overview
 
-OSSTrust is a Vercel-targeted TypeScript app for:
+OSSTrust is a TypeScript app with a Cloudflare Workers target and a retained Next.js recovery build for:
 
 - showing a public leaderboard of GitHub repositories funded for bug bounties
 - letting maintainers claim their program via GitHub ownership
@@ -53,7 +53,7 @@ Current app status:
 
 ## Verified Commands
 
-Use Node `22.13.0` from `.nvmrc`, or another supported `22.x` release. `24+` is also acceptable. Avoid Node `23.x` because package engine warnings appear there.
+Use Node `22.23.3` from `.nvmrc`, or another supported `22.x` release. `24+` is also acceptable. Avoid Node `23.x` because package engine warnings appear there.
 
 Install dependencies:
 
@@ -133,3 +133,17 @@ npm run build
 - The collaborator explicitly wants agents pushing and merging after each completed task.
 - A prior turn failed to push finished work. Do not repeat that mistake.
 - Keep this file compact, but do not omit information that will save future agents from repeating setup or workflow mistakes.
+
+## Cloudflare migration (2026-10-12)
+
+Read `NOTES.md` for verified checks and runtime boundaries. `npm run build:cloudflare`
+builds the vinext Worker; `npx wrangler deploy --dry-run` packages generated output.
+`npm run build` still verifies the original Next.js target. Use locked `npm ci`.
+Native Cloudflare Git builds own publication; never put deployment credentials in
+GitHub. `vercel.json` disables new Vercel Git builds and preserves the old deployment.
+For this coordinated migration, keep the local `codex/cloudflare-migration` commit
+for the coordinator to publish after DNS and native build setup; that explicit
+handoff overrides the usual immediate-push workflow for this preparation task.
+Only ASSETS is bound. Preserve seeded data and `/api/programs` filter semantics.
+Local skill installation and `.migration/` logs stay ignored. API parity, actual
+font assets and browser interactions are separate evidence from build success.

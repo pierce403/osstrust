@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+/dist/
+.vinext/
+.wrangler/
+
+# Local installed migration skill and verification artifacts
+.agents/
+skills-lock.json
+.migration/
