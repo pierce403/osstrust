@@ -60,3 +60,31 @@ Routes use `zone_name` and do not create custom-domain DNS. Build and Wrangler
 dry run pass. No push, deployment, proxy/DNS change or certificate change was made
 for this candidate. The coordinator must finish DNS/TLS readiness and sequence the
 production push.
+
+## 2026-10-13 dependency remediation candidate
+
+The separate security review branch resolves fflate 0.7.3 to 0.7.5 through an
+npm override because Satori pins the older version exactly. This addresses
+Dependabot alert #80. Alert #81 remains: braces 3.0.3 is still pulled by
+micromatch through `@next/eslint-plugin-next` and vinext's dynamic import
+tooling. The current advisory lists no patched braces version. No alert was
+dismissed, and no app source or deployment configuration changed.
+
+Node 22.22.1 validation: clean offline `npm ci --omit=optional`, lint,
+typecheck, Cloudflare build, and Wrangler dry run. Native optional binaries
+were restored from matching cached tarballs or the identical-version local
+install of another app after the offline install; a normal registry-backed
+`npm ci` must be checked by remote CI. This local checkout omits the remote
+favicon binary, so asset parity was not asserted. Keep this review separate
+from the coordinated migration release and do not merge or deploy it yet.
+
+## 2026-10-14 exact-PR recheck
+
+The published PR was cloned with all remote assets and rechecked under pinned
+Node 22.23.3. Normal registry-backed clean `npm ci`, lint, typecheck, Next
+recovery build, Cloudflare build, and Wrangler dry run passed. The locally
+built Worker served the homepage and `/api/programs` with HTTP 200. Fresh npm
+audit reports only the unpatched braces/micromatch build and lint chain; the
+fflate advisory resolves to patched 0.7.5. The public Cloudflare route is
+already live at the exact current main revision, so publication must be
+verified against the new merge commit after this PR merges.

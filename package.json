@@ -41,5 +41,8 @@
     "@cloudflare/vite-plugin": "1.63.1",
     "wrangler": "4.149.0"
   },
-  "type": "module"
+  "type": "module",
+  "overrides": {
+    "fflate": "0.7.5"
+  }
 }

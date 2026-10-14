@@ -151,3 +151,28 @@ font assets and browser interactions are separate evidence from build success.
 Production cutover uses ordinary zone routes (not custom domains) and disabled
 version preview URLs. DNS proxying, TLS readiness and the route-bearing production
 push must be sequenced by the migration coordinator.
+
+## Dependency remediation (2026-10-13)
+
+The fflate advisory can be resolved to 0.7.5 with an npm override because
+Satori pins 0.7.3 exactly. For an offline Node 22 build in the Codex sandbox,
+`npm ci --offline --omit=optional` succeeds, but the build still needs the
+platform-native Rolldown, Tailwind oxide, Lightning CSS, workerd and esbuild
+optional packages restored from a matching cached tarball or installed normally
+when registry access is available. Run lint, typecheck, `npm run
+build:cloudflare`, and `npx wrangler deploy --dry-run` after that restore.
+braces 3.0.3 remains through both Next ESLint and vinext glob tooling; the
+current advisory lists no patched version. Do not treat a bump to 3.0.3 as a fix.
+For this security review, the owner's requested draft PR and no-merge workflow
+supersedes the usual immediate-merge instruction above.
+
+## 2026-10-14 security release recheck
+
+On the exact fflate PR head with the complete remote asset checkout, Node
+22.23.3 `npm ci`, lint, typecheck, Next recovery build, Cloudflare build,
+and Wrangler dry run passed with normal registry access. A local built Worker
+returned HTTP 200 for `/` and `/api/programs`. The only fresh npm audit path
+remaining is unpatched braces through build/lint tooling; fflate is 0.7.5.
+The public `osstrust.org/deployment.json` served the exact then-current main
+revision over working Cloudflare DNS and TLS. Verify the new merge revision on
+both the public route and direct Worker URL after publication.
