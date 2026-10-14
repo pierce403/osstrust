@@ -77,3 +77,14 @@ install of another app after the offline install; a normal registry-backed
 `npm ci` must be checked by remote CI. This local checkout omits the remote
 favicon binary, so asset parity was not asserted. Keep this review separate
 from the coordinated migration release and do not merge or deploy it yet.
+
+## 2026-10-14 exact-PR recheck
+
+The published PR was cloned with all remote assets and rechecked under pinned
+Node 22.23.3. Normal registry-backed clean `npm ci`, lint, typecheck, Next
+recovery build, Cloudflare build, and Wrangler dry run passed. The locally
+built Worker served the homepage and `/api/programs` with HTTP 200. Fresh npm
+audit reports only the unpatched braces/micromatch build and lint chain; the
+fflate advisory resolves to patched 0.7.5. The public Cloudflare route is
+already live at the exact current main revision, so publication must be
+verified against the new merge commit after this PR merges.
