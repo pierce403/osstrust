@@ -41,3 +41,7 @@ Open `http://localhost:3000`.
 ## Docs
 
 - [Architecture notes](docs/architecture.md)
+
+## Licensing scope
+
+Original project code and documentation are licensed under the [Apache License, Version 2.0](LICENSE). Third-party dependencies, vendored code, quoted material, data, fonts, media, and other third-party assets retain their respective licenses and rights; this grant does not relicense them. Existing license notices and attribution must be preserved.
